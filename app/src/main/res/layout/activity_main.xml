@@ -53,13 +53,14 @@
         >
 
         <TextView
+            android:id="@+id/search_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="35dp"
+            android:layout_marginBottom="35dp"
             android:padding="10dp"
             android:text="🤕"
             android:textSize="100sp"
-            app:layout_constraintBottom_toTopOf="@id/search_editText"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -70,18 +71,20 @@
             android:layout_height="wrap_content"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="20dp"
             android:hint="ENTER PAIN LOCATION"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_image"
+            app:layout_constraintBottom_toTopOf="@id/search_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
         <Button
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="SEARCH CAUSES"
