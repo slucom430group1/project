@@ -16,7 +16,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
-        boolean darkModeOn = preferences.getBoolean("dark_mode", false);
+        boolean darkModeOn = preferences.getBoolean("dark_mode", true);
 
         AppCompatDelegate.setDefaultNightMode(
                 darkModeOn ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
@@ -29,6 +29,9 @@ public class Settings extends AppCompatActivity {
         Switch lightDarkSwitch = findViewById(R.id.light_dark_switch);
         lightDarkSwitch.setChecked(darkModeOn);
 
+        Button deleteFavoritesButton = findViewById(R.id.delete_favorites_button);
+
+
         lightDarkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             preferences.edit().putBoolean("dark_mode", isChecked).apply();
@@ -40,11 +43,21 @@ public class Settings extends AppCompatActivity {
 
         });
 
+
+        deleteFavoritesButton.setOnClickListener(v -> {
+
+            // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+            finish();
+
+        });
+
+
         back_button.setOnClickListener(v -> {
 
             finish();
 
         });
+
 
     }
 
