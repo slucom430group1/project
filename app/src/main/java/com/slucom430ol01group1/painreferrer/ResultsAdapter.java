@@ -109,7 +109,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
                 if (v.getContext() instanceof SearchResults) {
 
                     SearchResults activity = (SearchResults) v.getContext();
-                    activity.runOnUiThread(activity::recreate);
+                    activity.removeItemFromList(item);
 
                 }
 
@@ -136,5 +136,20 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         return items.size();
 
     }
+
+
+    public void removeItem(ResultItem item) {
+
+        int position = items.indexOf(item);
+        if (position != -1) {
+
+            items.remove(position);
+            notifyItemRemoved(position);
+
+        }
+
+    }
+
+
 
 }

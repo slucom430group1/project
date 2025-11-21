@@ -80,4 +80,20 @@ public class SearchResults extends AppCompatActivity {
 
     }
 
+
+    public void removeItemFromList(ResultItem item) {
+
+        RecyclerView recyclerView = findViewById(R.id.results_recyclerView);
+        ResultsAdapter adapter = (ResultsAdapter) recyclerView.getAdapter();
+
+        if (adapter != null) {
+
+            adapter.removeItem(item);
+
+        }
+
+    }
+
+
+
 }
