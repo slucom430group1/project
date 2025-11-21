@@ -25,19 +25,42 @@ public class SearchResults extends AppCompatActivity {
         setContentView(R.layout.search_results);
 
         Intent init_intent = getIntent();
-
         RecyclerView recyclerView = findViewById(R.id.results_recyclerView);
 
         Button back_button = findViewById(R.id.back_button);
-        Button saved_button = findViewById(R.id.saved_button);
 
-        String selected_symptom = init_intent.getStringExtra("search_text");
-
+        TextView header_text = findViewById(R.id.header_text);
+        String selected_symptom = init_intent.getStringExtra("header_text");
 
         List<ResultItem> data = new ArrayList<>();
+
         try {
 
-            data = JSONParserUtil.getResultsForSymptom(this, "weighted_disease_symptoms_dataset.json", selected_symptom);
+            if ("SAVED".equals(selected_symptom)) {
+
+                header_text.setText(selected_symptom);
+
+                AppDatabase db = AppDatabase.getInstance(this);
+                SavedDAO dao = db.savedDAO();
+                List<SavedEntity> savedItems = dao.getAllSaved();
+
+                for (SavedEntity e : savedItems) {
+
+                    data.add(new ResultItem(e.disease, e.painType, 0, 0, 0f));
+
+                }
+
+            }
+
+            else {
+
+                data = JSONParserUtil.getResultsForSymptom(
+                        this,
+                        "weighted_disease_symptoms_dataset.json",
+                        selected_symptom
+                );
+
+            }
 
         }
 
@@ -47,26 +70,13 @@ public class SearchResults extends AppCompatActivity {
 
         }
 
-        System.out.println("Result count: " + data.size());
+        Collections.sort(data, (a, b) -> a.disease.compareToIgnoreCase(b.disease));
+
         ResultsAdapter adapter = new ResultsAdapter(data);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-
-
-        back_button.setOnClickListener(v -> {
-
-            finish();
-
-        });
-
-        saved_button.setOnClickListener(v -> {
-
-            // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-            // Intent intent = new Intent(SearchResults.this, SearchResults.class);
-            recreate();
-
-        });
+        back_button.setOnClickListener(v -> finish());
 
     }
 

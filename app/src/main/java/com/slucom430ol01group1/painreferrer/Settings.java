@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
 
@@ -46,7 +47,11 @@ public class Settings extends AppCompatActivity {
 
         deleteFavoritesButton.setOnClickListener(v -> {
 
-            // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+            AppDatabase db = AppDatabase.getInstance(this);
+            db.savedDAO().deleteAll();
+
+            Toast.makeText(this, "Data cleared!", Toast.LENGTH_SHORT).show();
+
             finish();
 
         });

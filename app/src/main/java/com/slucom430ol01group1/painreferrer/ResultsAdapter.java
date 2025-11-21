@@ -1,11 +1,14 @@
 package com.slucom430ol01group1.painreferrer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
@@ -24,15 +27,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
         TextView symptom_text;
         TextView cause_text;
-
         TextView save_button;
         TextView info_button;
-
 
         public ViewHolder(View view) {
 
             super(view);
-
             symptom_text = view.findViewById(R.id.symptom_text);
             cause_text = view.findViewById(R.id.cause_text);
             save_button = view.findViewById(R.id.save_button);
@@ -68,16 +68,59 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         holder.symptom_text.setText(text);
         holder.cause_text.setText(item.painType);
 
+        AppDatabase db = AppDatabase.getInstance(holder.itemView.getContext());
+        SavedDAO dao = db.savedDAO();
+
+        SavedEntity existing = dao.findSaved(item.disease, item.painType);
+        boolean isSaved = existing != null;
+
+        if (isSaved) {
+
+            holder.save_button.setTextColor(Color.parseColor("#FFFFFFFF"));
+
+        }
+
+        else {
+
+            holder.save_button.setTextColor(Color.parseColor("#33FFFFFF"));
+
+        }
 
         holder.save_button.setOnClickListener(v -> {
 
-            // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+            SavedEntity current = dao.findSaved(item.disease, item.painType);
+
+            if (current == null) {
+
+                dao.insert(new SavedEntity(item.disease, item.painType));
+                holder.save_button.setTextColor(Color.parseColor("#FFFFFFFF"));
+
+                Toast.makeText(v.getContext(), "Added to Saved", Toast.LENGTH_SHORT).show();
+
+            }
+
+            else {
+
+                dao.delete(current);
+                holder.save_button.setTextColor(Color.parseColor("#33FFFFFF"));
+
+                Toast.makeText(v.getContext(), "Removed from Saved", Toast.LENGTH_SHORT).show();
+
+                if (v.getContext() instanceof SearchResults) {
+
+                    SearchResults activity = (SearchResults) v.getContext();
+                    activity.runOnUiThread(activity::recreate);
+
+                }
+
+            }
 
         });
 
         holder.info_button.setOnClickListener(v -> {
 
             String query = item.disease + " " + item.painType;
+
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://google.com/search?q=" + Uri.encode(query)));
 
@@ -86,7 +129,6 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         });
 
     }
-
 
     @Override
     public int getItemCount() {

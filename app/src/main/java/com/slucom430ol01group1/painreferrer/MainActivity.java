@@ -34,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
             List<String> symptomNames = JSONParserUtil.getSymptoms(this, "weighted_disease_symptoms_dataset.json");
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, symptomNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            search_spinner.setAdapter(adapter);
 
+            search_spinner.setAdapter(adapter);
 
         }
 
         catch (IOException e) {
 
             e.printStackTrace();
+
             Toast.makeText(this, "Error loading JSON", Toast.LENGTH_LONG).show();
 
         }
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         settings_button.setOnClickListener(v -> {
 
             Intent intent = new Intent(MainActivity.this, Settings.class);
+
             startActivity(intent);
 
         });
@@ -63,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         saved_button.setOnClickListener(v -> {
 
             Intent intent = new Intent(MainActivity.this, SearchResults.class);
-            intent.putExtra("search_text", "SAVED");
+            intent.putExtra("header_text", "SAVED");
+
             startActivity(intent);
 
         });
@@ -71,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
         search_button.setOnClickListener(v -> {
 
             Intent intent = new Intent(MainActivity.this, SearchResults.class);
-            intent.putExtra("search_text", search_spinner.getSelectedItem().toString());
+            intent.putExtra("header_text", search_spinner.getSelectedItem().toString());
+
             startActivity(intent);
 
         });
