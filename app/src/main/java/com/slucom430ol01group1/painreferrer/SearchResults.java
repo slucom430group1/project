@@ -95,5 +95,25 @@ public class SearchResults extends AppCompatActivity {
     }
 
 
+    public void refreshSavedItems() {
+
+        AppDatabase db = AppDatabase.getInstance(this);
+        List<SavedEntity> saved = db.savedDAO().getAllSaved();
+
+        List<ResultItem> refreshedList = new ArrayList<>();
+        for (SavedEntity s : saved) {
+
+            refreshedList.add(new ResultItem(s.disease, s.painType, 0, 0, 0));
+
+        }
+
+        RecyclerView recyclerView = findViewById(R.id.results_recyclerView);
+        ResultsAdapter adapter = new ResultsAdapter(refreshedList);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+
+
 
 }

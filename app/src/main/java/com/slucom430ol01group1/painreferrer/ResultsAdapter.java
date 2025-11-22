@@ -103,17 +103,20 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
                 dao.delete(current);
                 holder.save_button.setTextColor(Color.parseColor("#33FFFFFF"));
-
                 Toast.makeText(v.getContext(), "Removed from Saved", Toast.LENGTH_SHORT).show();
 
                 if (v.getContext() instanceof SearchResults) {
 
                     SearchResults activity = (SearchResults) v.getContext();
-                    activity.removeItemFromList(item);
 
+                    if ("SAVED".equalsIgnoreCase(activity.getIntent().getStringExtra("header_text"))) {
+
+                        activity.refreshSavedItems();
+
+                    }
                 }
-
             }
+
 
         });
 
@@ -140,7 +143,19 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
     public void removeItem(ResultItem item) {
 
-        int position = items.indexOf(item);
+        int position = -1;
+        for (int i = 0; i < items.size(); i++) {
+
+            ResultItem ri = items.get(i);
+            if (ri.disease.equals(item.disease) && ri.painType.equals(item.painType)) {
+
+                position = i;
+                break;
+
+            }
+
+        }
+
         if (position != -1) {
 
             items.remove(position);
@@ -149,6 +164,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         }
 
     }
+
 
 
 
