@@ -91,6 +91,7 @@
             android:hint="CHOOSE PAIN TYPE"
             android:gravity="center"
             android:textColor="#FFFFFFFF"
+            android:textAlignment="center"
             android:maxLength="20"
             app:layout_constraintTop_toBottomOf="@id/search_image"
             app:layout_constraintBottom_toTopOf="@id/search_button"
