@@ -42,6 +42,8 @@ public class PainRemedySplash extends AppCompatActivity {
             Intent intent = new Intent(PainRemedySplash.this, PainRemedyActivity.class);
             intent.putExtra("remedy_type", "EXERCISE");
 
+            startActivity(intent);
+
         });
 
 
@@ -49,6 +51,8 @@ public class PainRemedySplash extends AppCompatActivity {
 
             Intent intent = new Intent(PainRemedySplash.this, PainRemedyActivity.class);
             intent.putExtra("remedy_type", "HOT_COLD");
+
+            startActivity(intent);
 
         });
 
@@ -58,6 +62,8 @@ public class PainRemedySplash extends AppCompatActivity {
             Intent intent = new Intent(PainRemedySplash.this, PainRemedyActivity.class);
             intent.putExtra("remedy_type", "MASSAGE");
 
+            startActivity(intent);
+
         });
 
 
@@ -65,6 +71,8 @@ public class PainRemedySplash extends AppCompatActivity {
 
             Intent intent = new Intent(PainRemedySplash.this, PainRemedyActivity.class);
             intent.putExtra("remedy_type", "STRETCHES");
+
+            startActivity(intent);
 
 
         });
