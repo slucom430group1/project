@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
         Button settings_button = findViewById(R.id.settings_button);
         Button saved_button = findViewById(R.id.saved_button);
 
+        Spinner search_spinner = findViewById(R.id.search_spinner);
         Button search_button = findViewById(R.id.search_button);
 
+        Button pain_remedy_guide_button = findViewById(R.id.pain_remedy_guide_button);
 
-        Spinner search_spinner = findViewById(R.id.search_spinner);
 
         try {
 
@@ -75,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MainActivity.this, SearchResults.class);
             intent.putExtra("header_text", search_spinner.getSelectedItem().toString());
+
+            startActivity(intent);
+
+        });
+
+        pain_remedy_guide_button.setOnClickListener(v -> {
+
+            Intent intent = new Intent(MainActivity.this, PainRemedySplash.class);
 
             startActivity(intent);
 
