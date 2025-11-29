@@ -125,9 +125,6 @@ public class PainRemedyActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(finalQuery));
 
-            //Intent intent = new Intent(Intent.ACTION_VIEW,
-            //        Uri.parse("https://google.com/search?q=" + Uri.encode(finalQuery)));
-
             v.getContext().startActivity(intent);
 
         });
