@@ -29,31 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button pain_remedy_guide_button = findViewById(R.id.pain_remedy_guide_button);
 
-
-        try {
-
-            List<String> symptomNames = JSONParserUtil.getSymptoms(this, "weighted_disease_symptoms_dataset.json");
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, symptomNames);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            search_spinner.setAdapter(adapter);
-
-        }
-
-        catch (IOException e) {
-
-            e.printStackTrace();
-
-            Toast.makeText(this, "Error loading JSON", Toast.LENGTH_LONG).show();
-
-        }
-
-        catch (JSONException e) {
-
-            throw new RuntimeException(e);
-
-        }
-
+        populateSpinner();
 
         settings_button.setOnClickListener(v -> {
 
@@ -88,6 +64,45 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        populateSpinner();
+
+    }
+
+    public void populateSpinner() {
+
+        Spinner search_spinner = findViewById(R.id.search_spinner);
+
+        try {
+
+            List<String> symptomNames = JSONParserUtil.getSymptoms(this, "weighted_disease_symptoms_dataset.json");
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, symptomNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            search_spinner.setAdapter(adapter);
+
+        }
+
+        catch (IOException e) {
+
+            e.printStackTrace();
+
+            Toast.makeText(this, "Error loading JSON", Toast.LENGTH_LONG).show();
+
+        }
+
+        catch (JSONException e) {
+
+            throw new RuntimeException(e);
+
+        }
 
     }
 

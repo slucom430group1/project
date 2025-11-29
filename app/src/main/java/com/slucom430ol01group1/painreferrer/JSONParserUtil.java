@@ -9,20 +9,39 @@ import java.util.*;
 
 public class JSONParserUtil {
 
-    public static JSONObject loadJson(Context context, String assetFileName) throws IOException, JSONException {
+    public static JSONObject loadJson(Context context, String fileName) throws IOException, JSONException {
 
-        InputStream is = context.getAssets().open(assetFileName);
+        File localFile = new File(context.getFilesDir(), fileName);
+
+        InputStream is;
+        if (localFile.exists()) {
+
+            is = new FileInputStream(localFile);
+
+        }
+
+        else {
+
+            is = context.getAssets().open(fileName);
+
+        }
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 
         String line;
-        while ((line = reader.readLine()) != null) sb.append(line);
+        while ((line = reader.readLine()) != null) {
+
+            sb.append(line);
+
+        }
 
         reader.close();
 
         return new JSONObject(sb.toString());
 
     }
+
 
     public static List<String> getSymptoms(Context context, String assetFileName) throws IOException, JSONException {
 

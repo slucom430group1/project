@@ -33,7 +33,7 @@ public class PainRemedyActivity extends AppCompatActivity {
         TextView header_text = findViewById(R.id.header_text);
         TextView body_text = findViewById(R.id.body_text);
 
-        TextView info_link_text = findViewById(R.id.info_link_text);
+        Button info_link_text = findViewById(R.id.info_link_text);
 
         String remedy_type = getIntent().getStringExtra("remedy_type");
         String query = "";
