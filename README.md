@@ -11,12 +11,13 @@ Given the short timeframe allotted and the sheer scope of the requirements, we w
 ## UX LOOP
 
 - User opens app
-- App condenses dataset
+- App prepares dataset
 - User selects symptom
 - User presses Search
 - App filters relevant data
 - App displays results
 - User can tap items' Save or Search
+- User can read about basic pain remedies
 
 #
 ## VERSION V0.0.1
@@ -41,5 +42,15 @@ Given the short timeframe allotted and the sheer scope of the requirements, we w
 ### Settings Activity
 - Delete Saved Results button
 
+## VERSION v0.2.0
+
+### Search Results Activity
+- Removed non-referred pain categories
+
+### Remedy Activities
+- Remedy Category Activities
+- Pain Remedy Splash Activity
+
+#
 ## Planned Features
-- How-to-Use section
+- Update Database feature
